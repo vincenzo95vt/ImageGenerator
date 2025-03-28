@@ -19,6 +19,19 @@ def generate_image():
     prompt = data.get("prompt")
     style = data.get("style")
 
+    style_descriptions = {
+    "realista": "realismo extremo, iluminación natural, fondo coherente, ultra detalle, 8k",
+    "anime": "anime style, cel shading, fondo tipo Studio Ghibli, colores planos pero vivos",
+    "pixel": "pixel art, 8-bit, estética retro, paleta limitada, fondo simple tipo videojuego"
+    }
+
+    final_prompt = ""
+    if style in style_descriptions:
+        final_prompt = f"{prompt}, {style_descriptions[style]}"
+    print(style)
+    print(style_descriptions[style])
+    print(f"Prompt final: {final_prompt}")
+ 
     if not prompt:
         return jsonify({
             "error": "Prompt is required"
@@ -26,7 +39,7 @@ def generate_image():
     try:
         output = replicate_client.run(
             "black-forest-labs/flux-schnell",
-            input = {"prompt" : f'{prompt} con un estilo {style}'},
+            input = {"prompt" : final_prompt},
         )
         filename = f"output_{int(time.time())}.png"
         filepath = os.path.join("static", filename)
