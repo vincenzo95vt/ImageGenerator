@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
 import replicate
 import os
@@ -49,7 +49,7 @@ def generate_image():
             file.write(output[0].read())
 
             return jsonify({
-                "url": f"http://localhost:5000/{filepath}"
+                "url": url_for("static", filename=filename, _external=True),
             })
     except Exception as e:
         return jsonify({
