@@ -16,8 +16,8 @@ replicate_client = replicate.Client(api_token = REPLICATE_API_TOKEN)
 @app.route('/wakeUp', methods=["GET"])
 def wakeUp():
     return jsonify({
-        "message": "El servidor esta despierto y listo para recibir peticiones.", 200
-    })
+        "message": "El servidor esta despierto y listo para recibir peticiones."
+    }), 200
 
 @app.route('/generate', methods=["POST"])
 def generate_image():
